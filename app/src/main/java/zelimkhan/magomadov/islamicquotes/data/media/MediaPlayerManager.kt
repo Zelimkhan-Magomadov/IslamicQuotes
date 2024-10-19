@@ -4,7 +4,9 @@ import android.content.Context
 import android.media.MediaPlayer
 import zelimkhan.magomadov.islamicquotes.R
 
-class MediaPlayerManager(private val context: Context) {
+class MediaPlayerManager(
+    private val context: Context
+) {
     private var mediaPlayer: MediaPlayer? = null
     private var currentPosition = 0
     var isMuted = false

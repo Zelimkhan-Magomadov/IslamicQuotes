@@ -7,6 +7,7 @@ import com.google.gson.reflect.TypeToken
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import zelimkhan.magomadov.islamicquotes.data.quote.QuoteDataSource
+import zelimkhan.magomadov.islamicquotes.domain.quote.Quote
 
 class QuoteLocalDataSource(
     private val context: Context
@@ -18,7 +19,7 @@ class QuoteLocalDataSource(
 
     private val preferences = context.getSharedPreferences("quote_prefs", Context.MODE_PRIVATE)
 
-    override suspend fun getRandomQuote(): QuoteLocalModel = withContext(Dispatchers.IO) {
+    override suspend fun getRandomQuote(): Quote = withContext(Dispatchers.IO) {
         val quotes = when (val quotesJson = preferences.getString(QUOTES_PREF_KEY, null)) {
             "[]", null -> updateQuotesInPreferences()
             else -> Gson().fromJson(quotesJson, object : TypeToken<List<String>>() {}.type)
@@ -31,7 +32,7 @@ class QuoteLocalDataSource(
             putString(QUOTES_PREF_KEY, Gson().toJson(updatedQuotes))
         }
 
-        return@withContext QuoteLocalModel.fromString(quote)
+        return@withContext QuoteLocalModel.fromString(quote).asDomainModel()
     }
 
     private fun updateQuotesInPreferences(): List<String> {

@@ -20,9 +20,21 @@ android {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
+    applicationVariants.all {
+        val variant = this
+        outputs.all {
+            this as com.android.build.gradle.internal.api.ApkVariantOutputImpl
+
+            val appName = "islamic_quotes"
+            val apkFileName = "${appName}_${variant.buildType.name}_${variant.versionName}.apk"
+            outputFileName = apkFileName
+        }
+    }
+
     buildTypes {
         release {
             isMinifyEnabled = true
+            isShrinkResources = true
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
@@ -65,6 +77,11 @@ dependencies {
 
     implementation("com.google.dagger:hilt-android:2.52")
     ksp("com.google.dagger:hilt-android-compiler:2.52")
+    implementation("androidx.hilt:hilt-navigation-compose:1.2.0")
 
     implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.8.6")
+
+    implementation("com.github.skydoves:colorpicker-compose:1.1.2")
+
+    implementation("androidx.navigation:navigation-compose:2.8.3")
 }

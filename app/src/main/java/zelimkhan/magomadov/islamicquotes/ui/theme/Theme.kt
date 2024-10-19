@@ -17,6 +17,7 @@ fun IslamicQuotesTheme(
     MaterialTheme(
         colorScheme = LightColorScheme,
         typography = Typography,
+        shapes = defaultShapes,
         content = content
     )
 }

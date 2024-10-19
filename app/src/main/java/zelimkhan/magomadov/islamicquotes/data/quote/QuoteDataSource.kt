@@ -1,7 +1,7 @@
 package zelimkhan.magomadov.islamicquotes.data.quote
 
-import zelimkhan.magomadov.islamicquotes.data.quote.local.QuoteLocalModel
+import zelimkhan.magomadov.islamicquotes.domain.quote.Quote
 
 interface QuoteDataSource {
-    suspend fun getRandomQuote(): QuoteLocalModel
+    suspend fun getRandomQuote(): Quote
 }
